@@ -1,21 +1,68 @@
-.gradle
+# ====================================================================
+# 1. GRADLE & BUILD OUTPUTS
+# ====================================================================
+.gradle/
 **/build/
 !**/src/**/build/
 
-# Ignore Gradle GUI config
+# Cache do Gradle
+.gradletasknamecache
 gradle-app.setting
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+# Garantir que o Gradle Wrapper NÃO é ignorado (essencial para a pipeline)
 !gradle-wrapper.jar
-
-# Avoid ignore Gradle wrappper properties
 !gradle-wrapper.properties
 
-# Cache of project
-.gradletasknamecache
+# ====================================================================
+# 2. IDEs (IntelliJ IDEA & Eclipse)
+# ====================================================================
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/**/out/
 
-# Eclipse Gradle plugin generated files
-# Eclipse Core
+# Eclipse
 .project
-# JDT-specific (Eclipse Java Development Tools)
 .classpath
+.settings/
+.factorypath
+
+# ====================================================================
+# 3. BASE DE DADOS (Neo4j Local / Docker) & CACHE
+# ====================================================================
+# Ignorar dados locais da BD se correrem dentro da pasta do projeto
+**/data/
+**/logs/
+.modules/
+
+# Cache local do Redis (se aplicável)
+dump.rdb
+
+# ====================================================================
+# 4. FRONTEND (React / TypeScript - Sprint 3)
+# ====================================================================
+# Dependências do Node
+**/node_modules/
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+
+# Compilação do Frontend
+**/dist/
+**/build-frontend/
+
+# ====================================================================
+# 5. SISTEMA OPERATIVO & CONFIGURAÇÕES PESSOAIS
+# ====================================================================
+# Ficheiros de sistema
+Keep.me
+*.DS_Store
+Thumbs.db
+
+# Variáveis de ambiente locais (Segredos / Chaves de API)
+.env
+.env.local
+.env.*.local

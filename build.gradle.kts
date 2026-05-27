@@ -1,7 +1,6 @@
 plugins {
+    // Alvo estrito em Kotlin 2.1 para a JVM
     kotlin("jvm") version "2.1.0"
-    id("org.springframework.boot") version "3.2.5"
-    id("io.spring.dependency-management") version "1.1.5"
 }
 
 group = "com.graphcode"
@@ -12,32 +11,23 @@ repositories {
 }
 
 dependencies {
-    // Core do Kotlin & Coroutines para concorrência assíncrona real
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+    // Biblioteca padrão de Kotlin
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
-    // Spring Boot Starter Web para expor APIs e Webhooks
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    // --- DEPENDÊNCIAS DE TESTE (Sprint 1) ---
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
 
-    // Spring Data Neo4j para persistência relacional do CPG
-    implementation("org.springframework.boot:spring-boot-starter-data-neo4j")
-
-    // Bibliotecas de serialização segura de JSON
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-
-    // JUnit 5 para os teus testes unitários locais
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
-
-    // Testcontainers para Neo4j em Docker nos testes de integração
-    testImplementation("org.testcontainers:neo4j:1.19.7")
-    testImplementation("org.testcontainers:junit-jupiter:1.19.7")
+    // Nota: Mais tarde, no Sprint 1, vamos injetar aqui as dependências do
+    // Tree-sitter e do Spring Data Neo4j dentro deste ficheiro unificado.
 }
 
-kotlin {
-    jvmToolchain(21) // Garante a compilação estrita sob a JVM 21
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "21" // Compilação estrita para Java 21 (JVM 21)
+    }
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
-    maxParallelForks = Runtime.getRuntime().availableProcessors()
 }
