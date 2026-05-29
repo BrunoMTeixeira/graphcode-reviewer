@@ -13,7 +13,7 @@ data class TestNode(
     val suiteName: String,
     val isIgnored: Boolean,
 
-    @CompositeProperty
+    @org.springframework.data.annotation.Transient
     val position: Position? = null,
 
     @Relationship(type = "CALLS", direction = Relationship.Direction.OUTGOING)

@@ -13,7 +13,7 @@ data class ClassNode(
     val qualifiedName: String,
     val isExported: Boolean,
 
-    @CompositeProperty
+    @org.springframework.data.annotation.Transient
     val position: Position? = null,
 
     @Relationship(type = "CONTAINS", direction = Relationship.Direction.OUTGOING)

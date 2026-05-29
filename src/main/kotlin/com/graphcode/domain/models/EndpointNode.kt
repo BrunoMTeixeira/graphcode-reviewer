@@ -13,7 +13,7 @@ data class EndpointNode(
     val path: String,
     val handlerName: String,
 
-    @CompositeProperty
+    @org.springframework.data.annotation.Transient
     val position: Position? = null,
 
     @Relationship(type = "HANDLER", direction = Relationship.Direction.OUTGOING)

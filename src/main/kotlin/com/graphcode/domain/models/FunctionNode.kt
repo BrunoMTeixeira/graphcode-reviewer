@@ -14,7 +14,7 @@ data class FunctionNode(
     val returnType: String,
     val complexity: Int,
 
-    @CompositeProperty
+    @org.springframework.data.annotation.Transient
     val position: Position? = null,
 
     @Relationship(type = "CALLS", direction = Relationship.Direction.OUTGOING)

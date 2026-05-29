@@ -13,7 +13,7 @@ data class FileNode(
     val contentHash: String,
     val sizeBytes: Long,
     
-    @CompositeProperty
+    @org.springframework.data.annotation.Transient
     val position: Position? = null,
     
     @Relationship(type = "CONTAINS", direction = Relationship.Direction.OUTGOING)
