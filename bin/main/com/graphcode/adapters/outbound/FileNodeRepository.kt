@@ -9,5 +9,9 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface FileNodeRepository : Neo4jRepository<FileNode, String> {
+    /**
+     * Procura um ficheiro pela sua path absoluta/relativa.
+     * Usado no Algoritmo de Hashing Incremental.
+     */
     fun findByFilePath(filePath: String): FileNode?
 }

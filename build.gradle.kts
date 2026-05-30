@@ -24,7 +24,15 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
     implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")
     implementation("org.springframework.data:spring-data-neo4j:7.2.2")
-    implementation("io.github.tree-sitter:jtreesitter:0.24.0")
+    
+    // Parser AST & JNI Bindings (Multi-language)
+    implementation("io.github.bonede:tree-sitter:0.25.3")
+    implementation("io.github.bonede:tree-sitter-kotlin:0.3.8.1")
+    implementation("io.github.bonede:tree-sitter-java:0.23.4")
+    implementation("io.github.bonede:tree-sitter-python:0.23.4")
+    implementation("io.github.bonede:tree-sitter-javascript:0.23.1")
+    implementation("io.github.bonede:tree-sitter-c:0.23.2")
+    implementation("io.github.bonede:tree-sitter-cpp:0.23.4")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")

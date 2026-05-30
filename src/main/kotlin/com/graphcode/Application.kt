@@ -2,6 +2,8 @@ package com.graphcode
 
 import com.graphcode.domain.models.*
 import com.graphcode.adapters.outbound.FileNodeRepository
+import com.graphcode.adapters.outbound.TreeSitterAstExtractor
+import com.graphcode.adapters.outbound.Neo4jSaveGraphAdapter
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -17,18 +19,24 @@ class Application {
         log.info("Limpando a base de dados local para o teste...")
         repository.deleteAll()
 
-        log.info("A criar um ficheiro virtual e enviá-lo para o Neo4j...")
-        val node = FileNode(
-            filePath = "src/Magia.kt",
-            contentHash = "xyz789",
-            sizeBytes = 2048,
-            position = Position(1, 10, 0, 100)
-        )
+        log.info("A iniciar o Extrator de AST Multi-Linguagem...")
+        val extractor = TreeSitterAstExtractor()
         
-        node.functions.add(FunctionNode(name = "lancarMagia()", signature = "fun lancarMagia(): Unit", returnType = "Unit", complexity = 1, position = Position(1, 10, 0, 100)))
+        // Vamos ler o próprio código fonte deste ficheiro para testar o parser!
+        val myCodePath = "src/main/kotlin/com/graphcode/Application.kt"
+        val codeContent = java.io.File(myCodePath).readText()
         
-        repository.save(node)
-        log.info("✅ Nó gravado com sucesso! Abre o teu Neo4j Desktop para veres o Grafo.")
+        log.info("Extraindo AST de Application.kt...")
+        val fileNode = extractor.extract(codeContent, myCodePath)
+        
+        log.info("Encontradas ${fileNode.classes.size} classes e ${fileNode.functions.size} funções.")
+        
+        log.info("A gravar na Base de Dados (Teste de Incremento #24)...")
+        // Como o adaptador ainda não está diretamente ligado no Application, fazemos a verificação de hash nós próprios aqui para testar o Neo4jSaveGraphAdapter (que faz isto por trás)
+        val adapter = Neo4jSaveGraphAdapter(repository)
+        adapter.saveFileGraph(fileNode)
+        
+        log.info("✅ Código lido, extraído e persistido com sucesso! Abre o teu Neo4j Desktop.")
     }
 }
 

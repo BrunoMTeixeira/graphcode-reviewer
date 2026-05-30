@@ -14,9 +14,20 @@ class Neo4jSaveGraphAdapter(
 ) : SaveGraphRepositoryPort {
 
     override fun saveFileGraph(fileNode: FileNode): FileNode {
-        // Aproveitamos a lógica ACID de gravação em cascata do Spring Data Neo4j
-        // Ao gravar o FileNode, ele automaticamente grava as Classes e Funções associadas 
-        // por causa das marcações @Relationship no nosso Domínio!
+        // Algoritmo Incremental (Issue #24)
+        val existingNode = repository.findByFilePath(fileNode.filePath)
+        
+        if (existingNode != null) {
+            if (existingNode.contentHash == fileNode.contentHash) {
+                // Ficheiro não foi modificado (Hash idêntico). Saltar a persistência!
+                return existingNode
+            } else {
+                // Ficheiro modificado. Apagar o subgrafo obsoleto antes de gravar o novo.
+                repository.delete(existingNode)
+            }
+        }
+        
+        // Gravar o novo grafo via cascata
         return repository.save(fileNode)
     }
 
