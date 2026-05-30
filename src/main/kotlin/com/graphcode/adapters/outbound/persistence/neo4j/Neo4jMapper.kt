@@ -97,4 +97,77 @@ object Neo4jMapper {
             endByte = entity["endByte"] ?: 0
         )
     }
+
+    // --- Endpoint: Domain ↔ Entity ---
+
+    fun toEntity(domain: EndpointNode): EndpointEntity {
+        val entity = EndpointEntity(
+            id = domain.id,
+            method = domain.method,
+            path = domain.path,
+            handlerName = domain.handlerName,
+            position = domain.position?.let { toEntity(it) }
+        )
+        entity.handler = domain.handler?.let { toEntity(it) }
+        return entity
+    }
+
+    fun toDomain(entity: EndpointEntity): EndpointNode {
+        val domain = EndpointNode(
+            id = entity.id,
+            method = entity.method,
+            path = entity.path,
+            handlerName = entity.handlerName,
+            position = entity.position?.let { toDomain(it) },
+            handler = entity.handler?.let { toDomain(it) }
+        )
+        return domain
+    }
+
+    // --- DataModel: Domain ↔ Entity ---
+
+    fun toEntity(domain: DataModelNode): DataModelEntity {
+        return DataModelEntity(
+            id = domain.id,
+            name = domain.name,
+            fields = domain.fields,
+            schemaType = domain.schemaType
+        )
+    }
+
+    fun toDomain(entity: DataModelEntity): DataModelNode {
+        return DataModelNode(
+            id = entity.id,
+            name = entity.name,
+            fields = entity.fields,
+            schemaType = entity.schemaType
+        )
+    }
+
+    // --- Test: Domain ↔ Entity ---
+
+    fun toEntity(domain: TestNode): TestEntity {
+        val entity = TestEntity(
+            id = domain.id,
+            type = domain.type,
+            suiteName = domain.suiteName,
+            isIgnored = domain.isIgnored,
+            position = domain.position?.let { toEntity(it) }
+        )
+        entity.testFunctions.addAll(domain.testFunctions.map { toEntity(it) })
+        return entity
+    }
+
+    fun toDomain(entity: TestEntity): TestNode {
+        val domain = TestNode(
+            id = entity.id,
+            type = entity.type,
+            suiteName = entity.suiteName,
+            isIgnored = entity.isIgnored,
+            position = entity.position?.let { toDomain(it) }
+        )
+        domain.testFunctions.addAll(entity.testFunctions.map { toDomain(it) })
+        return domain
+    }
 }
+

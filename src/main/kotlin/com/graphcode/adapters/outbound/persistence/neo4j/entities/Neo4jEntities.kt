@@ -48,3 +48,39 @@ data class FunctionEntity(
 ) {
     val calledFunctions = mutableListOf<String>()
 }
+
+@Node("Endpoint")
+data class EndpointEntity(
+    @Id val id: String,
+    val method: String,
+    val path: String,
+    val handlerName: String,
+
+    @CompositeProperty(prefix = "pos.")
+    val position: Map<String, Long>? = null
+) {
+    @Relationship(type = "HANDLER", direction = Relationship.Direction.OUTGOING)
+    var handler: FunctionEntity? = null
+}
+
+@Node("DataModel")
+data class DataModelEntity(
+    @Id val id: String,
+    val name: String,
+    val fields: List<String>,
+    val schemaType: String
+)
+
+@Node("Test")
+data class TestEntity(
+    @Id val id: String,
+    val type: String,
+    val suiteName: String,
+    val isIgnored: Boolean,
+
+    @CompositeProperty(prefix = "pos.")
+    val position: Map<String, Long>? = null
+) {
+    @Relationship(type = "CALLS", direction = Relationship.Direction.OUTGOING)
+    val testFunctions: MutableList<FunctionEntity> = mutableListOf()
+}
