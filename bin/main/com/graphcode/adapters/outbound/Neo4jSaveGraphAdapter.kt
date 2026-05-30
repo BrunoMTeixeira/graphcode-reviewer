@@ -14,7 +14,7 @@ class Neo4jSaveGraphAdapter(
 ) : SaveGraphRepositoryPort {
 
     override fun saveFileGraph(fileNode: FileNode): FileNode {
-        // Algoritmo Incremental (Issue #24)
+        // Algoritmo Incremental
         val existingNode = repository.findByFilePath(fileNode.filePath)
         
         if (existingNode != null) {
