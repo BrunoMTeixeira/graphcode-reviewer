@@ -92,8 +92,7 @@ tasks.jacocoTestCoverageVerification {
     violationRules {
         rule {
             limit {
-                // Limit lowered from 0.90 to 0.0 due to Gradle bug with 'º' in path preventing test execution locally
-                minimum = 0.0.toBigDecimal()
+                minimum = 0.40.toBigDecimal()
             }
         }
     }
