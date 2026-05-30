@@ -6,3 +6,7 @@ spring:
     authentication:
       username: ${NEO4J_USERNAME}
       password: ${NEO4J_PASSWORD}
+
+logging:
+  level:
+    org.springframework.data.neo4j.cypher.deprecation: ERROR

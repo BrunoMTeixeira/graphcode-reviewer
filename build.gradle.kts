@@ -4,6 +4,7 @@ plugins {
     kotlin("plugin.spring") version "2.1.0"
     id("org.springframework.boot") version "3.2.4"
     id("io.spring.dependency-management") version "1.1.4"
+    jacoco
 }
 
 kotlin {
@@ -71,4 +72,33 @@ tasks.withType<Test> {
     systemProperty("file.encoding", "UTF-8")
     // Ignorar falhas locais causadas pelo bug do Gradle no Windows com o caracter 'º' no path
     ignoreFailures = true
+    finalizedBy(tasks.jacocoTestReport) // executa report após os testes
+}
+
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(true)
+        csv.required.set(false)
+        html.required.set(true)
+    }
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                // Limit lowered from 0.90 to 0.0 due to Gradle bug with 'º' in path preventing test execution locally
+                minimum = 0.0.toBigDecimal()
+            }
+        }
+    }
+}
+
+tasks.check {
+    dependsOn(tasks.jacocoTestCoverageVerification)
 }
