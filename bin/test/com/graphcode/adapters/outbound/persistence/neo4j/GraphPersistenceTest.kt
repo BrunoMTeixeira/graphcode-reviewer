@@ -12,8 +12,14 @@ import org.testcontainers.containers.Neo4jContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 
-class KNeo4jContainer : Neo4jContainer<KNeo4jContainer>("neo4j:5.18.0")
-
+class KNeo4jContainer : Neo4jContainer<KNeo4jContainer>("neo4j:5.18.0-apoc") {
+    init {
+        withEnv("NEO4J_apoc_export_file_enabled", "true")
+        withEnv("NEO4J_apoc_import_file_enabled", "true")
+        withEnv("NEO4J_apoc_import_file_use__neo4j__config", "true")
+        withEnv("NEO4J_PLUGINS", "[\"apoc\"]")
+    }
+}
 @DataNeo4jTest
 @Testcontainers
 class GraphPersistenceTest {

@@ -49,6 +49,14 @@ dependencies {
     // Spring Boot Test Framework (necessário para @DataNeo4jTest funcionar out-of-the-box)
     implementation("org.springframework.boot:spring-boot-starter-data-neo4j:3.2.4")
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.2.4")
+
+    // HTTP Client (Ktor) para Azure AI Foundry e Dotenv para credenciais
+    val ktorVersion = "2.3.10"
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
