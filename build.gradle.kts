@@ -36,12 +36,15 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
-    
-    // Neo4j & Testcontainers para testes de integração
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.testcontainers:junit-jupiter:1.19.7")
     testImplementation("org.testcontainers:neo4j:1.19.7")
+    
+    // Mocking e Assertions avançadas para Unit Tests
+    testImplementation("io.mockk:mockk:1.13.10")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.neo4j.driver:neo4j-java-driver:5.18.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
     
     // Spring Boot Test Framework (necessário para @DataNeo4jTest funcionar out-of-the-box)
     implementation("org.springframework.boot:spring-boot-starter-data-neo4j:3.2.4")
@@ -57,4 +60,5 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    systemProperty("file.encoding", "UTF-8")
 }

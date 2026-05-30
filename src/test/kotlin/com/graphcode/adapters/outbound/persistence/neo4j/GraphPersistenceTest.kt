@@ -1,6 +1,6 @@
-package com.graphcode.adapters.outbound
+package com.graphcode.adapters.outbound.persistence.neo4j
 
-import com.graphcode.domain.models.*
+import com.graphcode.adapters.outbound.persistence.neo4j.entities.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,7 +19,7 @@ class KNeo4jContainer : Neo4jContainer<KNeo4jContainer>("neo4j:5.18.0")
 class GraphPersistenceTest {
 
     @Autowired
-    lateinit var fileNodeRepository: FileNodeRepository
+    lateinit var fileEntityRepository: FileEntityRepository
 
     companion object {
         @Container
@@ -38,37 +38,35 @@ class GraphPersistenceTest {
     }
 
     @Test
-    fun `should save FileNode and its related FunctionNodes in Neo4j via cascata`() {
-        // Arrange (Preparar os Dados do nosso Domínio Puro)
-        val fileNode = FileNode(
+    fun `should save FileEntity and its CompositeProperties in Neo4j via cascata`() {
+        val fileEntity = FileEntity(
             filePath = "src/UserService.kt",
             contentHash = "hash123",
             sizeBytes = 1024,
-            position = Position(1, 10, 0, 100)
+            position = mapOf("startLine" to 1L, "endLine" to 10L, "startByte" to 0L, "endByte" to 100L)
         )
 
-        val funcNode = FunctionNode(
+        val funcEntity = FunctionEntity(
+            id = "func-1",
             name = "login",
             signature = "login()",
             returnType = "Unit",
             complexity = 1,
-            position = Position(2, 5, 10, 50)
+            position = mapOf("startLine" to 2L, "endLine" to 5L, "startByte" to 10L, "endByte" to 50L)
         )
 
-        fileNode.functions.add(funcNode)
+        fileEntity.functions.add(funcEntity)
 
-        // Act (Agir: Escrever no Grafo)
-        fileNodeRepository.save(fileNode)
+        fileEntityRepository.save(fileEntity)
 
-        // Assert (Verificar se ficou guardado com as relações)
-        val saved = fileNodeRepository.findByFilePath("src/UserService.kt")
+        val saved = fileEntityRepository.findByFilePath("src/UserService.kt")
         
         assertNotNull(saved)
         assertEquals("hash123", saved?.contentHash)
         assertEquals(1, saved?.functions?.size)
         assertEquals("login", saved?.functions?.first()?.name)
         
-        // Validação da Posição Embedded (CompositeProperty)
-        assertEquals(2L, saved?.functions?.first()?.position?.startLine)
+        // Posição agora não é Null! O @CompositeProperty resolve o problema da Persistência Hexagonal.
+        assertEquals(2L, saved?.functions?.first()?.position?.get("startLine"))
     }
 }
