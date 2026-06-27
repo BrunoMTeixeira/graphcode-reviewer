@@ -3,6 +3,7 @@ package com.graphcode.adapters.outbound.persistence.neo4j
 import com.graphcode.domain.models.FileNode
 import com.graphcode.ports.outbound.SaveGraphRepositoryPort
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
 @Component
 class Neo4jSaveGraphAdapter(
@@ -28,5 +29,9 @@ class Neo4jSaveGraphAdapter(
     override fun findByFilePath(filePath: String): FileNode? {
         val entity = repository.findByFilePath(filePath)
         return entity?.let { Neo4jMapper.toDomain(it) }
+    }
+
+    override fun linkFunctionCalls() {
+        repository.linkFunctionCalls()
     }
 }

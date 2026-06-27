@@ -15,7 +15,12 @@ import kotlin.io.path.readText
 class LocalGitScannerAdapter : DirectoryScannerPort {
 
     // Extensões suportadas pelo nosso Extrator TreeSitter
-    private val supportedExtensions = setOf("kt", "kts", "java", "py", "js", "jsx", "ts", "c", "cpp", "hpp", "h", "cc", "cxx")
+    private val supportedExtensions = setOf(
+        "kt", "kts", "java", "py", "js", "jsx", "ts", "tsx", "c", "cpp", "hpp", "h", "cc", "cxx",
+        "cs", "go", "rb", "php", "rs", "scala", "swift", "sh", "bash", "html", "htm", "css",
+        "json", "yml", "yaml", "toml", "hs", "jl", "ml", "mli", "nim", "erl", "hrl", "lua",
+        "pl", "pm", "vue", "svelte", "md", "tex", "rkt", "scm", "ss", "pas", "agda", "pgn"
+    )
     
     // Pastas a ignorar para não poluir o parser
     private val ignoredDirectories = setOf(".git", ".idea", ".gradle", "build", "node_modules", "target", "out")

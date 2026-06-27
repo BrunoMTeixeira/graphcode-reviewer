@@ -17,4 +17,10 @@ interface SaveGraphRepositoryPort {
      * Procura um ficheiro guardado pelo seu caminho exato.
      */
     fun findByFilePath(filePath: String): FileNode?
+    
+    /**
+     * Executa a ligação global das arestas CALLS no grafo.
+     * Deve ser invocado apenas no final de toda a extração.
+     */
+    fun linkFunctionCalls()
 }
