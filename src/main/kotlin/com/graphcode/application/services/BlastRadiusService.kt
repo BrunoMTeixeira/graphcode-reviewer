@@ -1,4 +1,4 @@
-package com.graphcode.services
+package com.graphcode.application.services
 
 import com.graphcode.ports.inbound.BlastRadiusResult
 import com.graphcode.ports.inbound.BlastRadiusUseCase

@@ -1,4 +1,4 @@
-package com.graphcode.services
+package com.graphcode.application.services
 
 import com.graphcode.ports.inbound.NlToCypherResult
 import com.graphcode.ports.inbound.NlToCypherUseCase

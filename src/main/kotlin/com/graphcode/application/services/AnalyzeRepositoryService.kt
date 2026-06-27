@@ -43,6 +43,10 @@ class AnalyzeRepositoryService(
             }
         }
         
+        // 3. Final: Construir o Call Graph
+        log.info { "A construir Call Graph (arestas CALLS)..." }
+        saveGraphPort.linkFunctionCalls()
+        
         log.info { "✅ Análise Concluída! Ficheiros validados: $filesSaved | Classes: $classesExtracted | Funções: $functionsExtracted" }
     }
 }
