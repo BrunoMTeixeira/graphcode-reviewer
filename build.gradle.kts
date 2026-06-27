@@ -34,6 +34,39 @@ dependencies {
     implementation("io.github.bonede:tree-sitter-javascript:0.23.1")
     implementation("io.github.bonede:tree-sitter-c:0.23.2")
     implementation("io.github.bonede:tree-sitter-cpp:0.23.4")
+    implementation("io.github.bonede:tree-sitter-c-sharp:0.23.1")
+    implementation("io.github.bonede:tree-sitter-go:0.23.3")
+    implementation("io.github.bonede:tree-sitter-ruby:0.23.1")
+    implementation("io.github.bonede:tree-sitter-php:0.23.11")
+    implementation("io.github.bonede:tree-sitter-rust:0.23.1")
+    implementation("io.github.bonede:tree-sitter-scala:0.23.3")
+    implementation("io.github.bonede:tree-sitter-swift:0.5.0")
+    implementation("io.github.bonede:tree-sitter-typescript:0.23.2")
+    implementation("io.github.bonede:tree-sitter-bash:0.23.3")
+    implementation("io.github.bonede:tree-sitter-html:0.23.2")
+    implementation("io.github.bonede:tree-sitter-css:0.23.1")
+    implementation("io.github.bonede:tree-sitter-json:0.24.8")
+    implementation("io.github.bonede:tree-sitter-yaml:0.5.0a")
+    implementation("io.github.bonede:tree-sitter-toml:0.5.1a")
+    implementation("io.github.bonede:tree-sitter-haskell:0.23.1")
+    implementation("io.github.bonede:tree-sitter-julia:0.23.1")
+    implementation("io.github.bonede:tree-sitter-ocaml:0.23.2")
+    implementation("io.github.bonede:tree-sitter-nim:0.6.0")
+    implementation("io.github.bonede:tree-sitter-erlang:0.1.0a")
+    implementation("io.github.bonede:tree-sitter-lua:2.1.3a")
+    implementation("io.github.bonede:tree-sitter-perl:1.1.0")
+    implementation("io.github.bonede:tree-sitter-vue:0.2.1a")
+    implementation("io.github.bonede:tree-sitter-svelte:0.11.0a")
+    implementation("io.github.bonede:tree-sitter-markdown:0.7.1a")
+    implementation("io.github.bonede:tree-sitter-latex:0.3.0a")
+    implementation("io.github.bonede:tree-sitter-racket:0.3.0a")
+    implementation("io.github.bonede:tree-sitter-scheme:0.6.0a")
+    implementation("io.github.bonede:tree-sitter-pascal:0.9.1a")
+    implementation("io.github.bonede:tree-sitter-m68k:0.2.7a")
+    implementation("io.github.bonede:tree-sitter-agda:1.3.3")
+    implementation("io.github.bonede:tree-sitter-pgn:1.0.5")
+    implementation("io.github.bonede:tree-sitter-regex:1.0.0")
+    implementation("io.github.bonede:tree-sitter-meson:1.2.1")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
@@ -92,7 +125,7 @@ tasks.jacocoTestCoverageVerification {
     violationRules {
         rule {
             limit {
-                minimum = 0.40.toBigDecimal()
+                minimum = "0.90".toBigDecimal()
             }
         }
     }

@@ -29,9 +29,11 @@ class TreeSitterAstExtractorTest {
         assertEquals(1, fileNode.classes.size)
         assertEquals("MyKotlinClass", fileNode.classes[0].name)
         
-        assertEquals(2, fileNode.functions.size)
-        assertTrue(fileNode.functions.any { it.name == "myAwesomeFunction" })
+        assertEquals(1, fileNode.functions.size)
         assertTrue(fileNode.functions.any { it.name == "topLevelFunction" })
+        
+        assertEquals(1, fileNode.classes[0].functions.size)
+        assertTrue(fileNode.classes[0].functions.any { it.name == "myAwesomeFunction" })
     }
 
     @Test

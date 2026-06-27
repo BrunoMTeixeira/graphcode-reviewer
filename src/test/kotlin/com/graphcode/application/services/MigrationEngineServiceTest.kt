@@ -1,4 +1,4 @@
-package com.graphcode.services
+package com.graphcode.application.services
 
 import com.graphcode.ports.inbound.MigrationFileContext
 import com.graphcode.ports.outbound.MigrationQueryPort
