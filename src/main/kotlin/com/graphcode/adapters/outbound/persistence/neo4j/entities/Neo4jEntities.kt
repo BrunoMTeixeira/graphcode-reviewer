@@ -10,6 +10,7 @@ data class FileEntity(
     @Id val filePath: String,
     val contentHash: String,
     val sizeBytes: Long,
+    val name: String = filePath.substringAfterLast('/').substringAfterLast('\\'),
     
     @CompositeProperty(prefix = "pos.")
     val position: Map<String, Long>? = null

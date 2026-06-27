@@ -15,13 +15,15 @@ class Neo4jDeadCodeAdapter(private val neo4jClient: Neo4jClient) : DeadCodeQuery
         
         // 1. Detectar Código Morto (Funções ou Classes não referenciadas)
         val deadCodeQuery = """
-            MATCH (n)
+            MATCH (file:File)-[:CONTAINS*1..2]->(n)
             WHERE (n:`Function` OR n:`Class`)
               AND NOT ()-[:CALLS|DEPENDS_ON]->(n)
               AND NOT n.name CONTAINS "Test"
-              AND NOT n.name CONTAINS "main"
+              AND NOT n.name IN ["main", "run", "startServer", "stopServer", "execute", "scanDirectory", "extract"]
+              AND NOT file.filePath CONTAINS "/ports/"
+              AND NOT (n:`Function` AND n.complexity = 1 AND (n.`pos.endLine` - n.`pos.startLine`) = 0)
             RETURN coalesce(n.qualifiedName, n.name, "Unknown") AS name, 
-                   "Grafo" AS fileLoc
+                   file.filePath AS fileLoc
         """.trimIndent()
 
         neo4jClient.query(deadCodeQuery).fetch().all().forEach { record ->
