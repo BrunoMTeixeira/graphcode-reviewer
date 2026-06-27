@@ -17,8 +17,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 
+import com.graphcode.ports.inbound.BlastRadiusUseCase
+import com.graphcode.ports.inbound.DeadCodeUseCase
+import com.graphcode.ports.inbound.MigrationEngineUseCase
+import com.graphcode.ports.inbound.NlToCypherUseCase
+
 @Component
-class McpTcpServer {
+class McpTcpServer(
+    private val blastRadiusUseCase: BlastRadiusUseCase,
+    private val deadCodeUseCase: DeadCodeUseCase,
+    private val migrationEngineUseCase: MigrationEngineUseCase,
+    private val nlToCypherUseCase: NlToCypherUseCase
+) {
     private val logger = LoggerFactory.getLogger(McpTcpServer::class.java)
     private var serverSocket: ServerSocket? = null
     private val serverScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
@@ -47,9 +57,14 @@ class McpTcpServer {
                 }
                 
                 if (clientSocket != null) {
-                    // Requisito: concorrência com async/awaitAll
                     val job = async {
-                        McpSession(clientSocket).handle()
+                        McpSession(
+                            socket = clientSocket,
+                            blastRadiusUseCase = blastRadiusUseCase,
+                            deadCodeUseCase = deadCodeUseCase,
+                            migrationEngineUseCase = migrationEngineUseCase,
+                            nlToCypherUseCase = nlToCypherUseCase
+                        ).handle()
                     }
                     jobs.add(job)
                     
