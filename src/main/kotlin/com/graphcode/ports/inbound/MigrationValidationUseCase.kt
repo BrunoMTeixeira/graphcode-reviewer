@@ -1,6 +1,6 @@
 package com.graphcode.ports.inbound
 
-import com.graphcode.application.config.GraphCodeConfig
+import com.graphcode.domain.models.config.GraphCodeConfig
 import kotlinx.serialization.Serializable
 
 @Serializable

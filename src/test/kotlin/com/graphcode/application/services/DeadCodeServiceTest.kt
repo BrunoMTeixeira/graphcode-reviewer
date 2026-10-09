@@ -1,4 +1,4 @@
-package com.graphcode.application.services
+﻿package com.graphcode.application.services
 
 import com.graphcode.ports.inbound.DeadCodeResult
 import com.graphcode.ports.outbound.DeadCodeQueryPort
@@ -18,8 +18,8 @@ class DeadCodeServiceTest {
     fun `should find dead code and cycles`() = runTest {
         // Arrange
         val expectedList = listOf(
-            DeadCodeResult("OldClass", "src/OldClass.kt", "MÉDIA", "Unreachable code"),
-            DeadCodeResult("A <-> B", "Grafo", "ALTA", "Circular dependency detected")
+            DeadCodeResult("OldClass", "src/OldClass.kt", com.graphcode.domain.models.Severity.MEDIA, "Unreachable code"),
+            DeadCodeResult("A <-> B", "Grafo", com.graphcode.domain.models.Severity.ALTA, "Circular dependency detected")
         )
         coEvery { deadCodeQueryPort.findIsolatedNodesAndCycles() } returns expectedList
 

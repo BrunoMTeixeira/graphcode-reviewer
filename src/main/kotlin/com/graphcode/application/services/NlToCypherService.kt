@@ -5,7 +5,7 @@ import com.graphcode.ports.inbound.NlToCypherUseCase
 import com.graphcode.ports.outbound.LlmClientPort
 import org.springframework.data.neo4j.core.Neo4jClient
 import org.springframework.stereotype.Service
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -15,7 +15,7 @@ class NlToCypherService(
     private val neo4jClient: Neo4jClient
 ) : NlToCypherUseCase {
 
-    private val logger = LoggerFactory.getLogger(NlToCypherService::class.java)
+    private val log = KotlinLogging.logger {}
 
     override suspend fun executeNaturalLanguageQuery(query: String): NlToCypherResult {
         var retries = 0
@@ -28,11 +28,11 @@ class NlToCypherService(
                 if (retries == 0) {
                     currentCypher = llmClientPort.generateCypher(query)
                 } else {
-                    logger.warn("Tentativa $retries/3 de corrigir Cypher: $currentCypher | Erro: $lastError")
+                    log.warn("Tentativa $retries/3 de corrigir Cypher: $currentCypher | Erro: $lastError")
                     currentCypher = llmClientPort.generateCypher(query, lastError, currentCypher)
                 }
                 
-                logger.info("Executando Cypher gerado: $currentCypher")
+                log.info("Executando Cypher gerado: $currentCypher")
                 
                 // Tenta executar
                 val results = neo4jClient.query(currentCypher).fetch().all()

@@ -1,4 +1,4 @@
-package com.graphcode
+﻿package com.graphcode
 
 import com.graphcode.ports.inbound.AnalyzeRepositoryPort
 import org.springframework.boot.CommandLineRunner
@@ -17,8 +17,9 @@ class Application(
         repository.clearDatabase()
         
         // Agora a orquestração do parsing, hashing e BD foi delegada à Camada de Aplicação!
-        val targetDirectory = "C:/Users/btmic/OneDrive/Desktop/poc-code-review/poc-code-review/src"
+        val targetDirectory = "C:/Users/btmic/Desktop/graphcode-reviewer/src/main/kotlin"
         analyzeRepositoryUseCase.execute(targetDirectory)
+        
     }
 }
 

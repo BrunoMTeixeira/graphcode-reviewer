@@ -40,9 +40,9 @@ class Neo4jBlastRadiusAdapter(
                 val depth = (record["depth"] as? Number)?.toInt() ?: 1
                 
                 val severity = when (depth) {
-                    1 -> "ALTA"
-                    2 -> "MÉDIA"
-                    else -> "BAIXA"
+                    1 -> com.graphcode.domain.models.Severity.ALTA
+                    2 -> com.graphcode.domain.models.Severity.MEDIA
+                    else -> com.graphcode.domain.models.Severity.BAIXA
                 }
 
                 paths.add(

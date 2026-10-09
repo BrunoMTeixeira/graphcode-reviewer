@@ -1,4 +1,4 @@
-package com.graphcode.application.services
+﻿package com.graphcode.application.services
 
 import com.graphcode.ports.inbound.BlastRadiusPath
 import com.graphcode.ports.inbound.BlastRadiusResult
@@ -21,7 +21,7 @@ class BlastRadiusServiceTest {
         val expectedResult = BlastRadiusResult(
             targetNode = "com.example.Service",
             totalImpactedNodes = 1,
-            paths = listOf(BlastRadiusPath(1, listOf("com.example.Controller"), "ALTA"))
+            paths = listOf(BlastRadiusPath(1, listOf("com.example.Controller"), com.graphcode.domain.models.Severity.ALTA))
         )
         coEvery { blastRadiusQueryPort.findImpactPaths(any(), any()) } returns expectedResult
 

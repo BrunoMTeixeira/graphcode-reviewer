@@ -1,4 +1,4 @@
-package com.graphcode.adapters.outbound.persistence.neo4j
+﻿package com.graphcode.adapters.outbound.persistence.neo4j
 
 import com.graphcode.domain.models.*
 import com.graphcode.adapters.outbound.persistence.neo4j.entities.*
@@ -14,6 +14,8 @@ import org.testcontainers.containers.Neo4jContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 
+import org.junit.jupiter.api.Disabled
+@Disabled("Ignorado localmente por falta de Docker")
 @DataNeo4jTest
 @Testcontainers
 class GraphPersistenceIntegrationTest {

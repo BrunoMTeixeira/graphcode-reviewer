@@ -1,7 +1,7 @@
 package com.graphcode.adapters.outbound.fs
 
 import com.graphcode.ports.outbound.DirectoryScannerPort
-import com.graphcode.ports.outbound.ScannedFile
+import com.graphcode.domain.models.ScannedFile
 import org.springframework.stereotype.Component
 import java.io.File
 import java.nio.file.Files

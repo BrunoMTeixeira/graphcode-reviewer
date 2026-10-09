@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class DeadCodeResult(
     val qualifiedName: String,
     val fileLocation: String,
-    val severity: String,
+    val severity: com.graphcode.domain.models.Severity,
     val reason: String
 )
 

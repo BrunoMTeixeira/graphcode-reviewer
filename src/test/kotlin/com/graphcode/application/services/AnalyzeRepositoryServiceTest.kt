@@ -1,10 +1,10 @@
-package com.graphcode.application.services
+﻿package com.graphcode.application.services
 
 import com.graphcode.domain.models.FileNode
 import com.graphcode.ports.outbound.AstExtractorPort
 import com.graphcode.ports.outbound.DirectoryScannerPort
 import com.graphcode.ports.outbound.SaveGraphRepositoryPort
-import com.graphcode.ports.outbound.ScannedFile
+import com.graphcode.domain.models.ScannedFile
 import io.mockk.*
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals

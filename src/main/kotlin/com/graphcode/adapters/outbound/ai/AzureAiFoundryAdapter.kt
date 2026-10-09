@@ -11,9 +11,11 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.*
 import org.springframework.stereotype.Component
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 @Component
 class AzureAiFoundryAdapter : LlmClientPort {
+    private val log = KotlinLogging.logger {}
     private val dotenv = dotenv { ignoreIfMissing = true }
     private val endpoint = dotenv["AZURE_OPENAI_ENDPOINT"] ?: System.getenv("AZURE_OPENAI_ENDPOINT")
     private val apiKey = dotenv["AZURE_OPENAI_API_KEY"] ?: System.getenv("AZURE_OPENAI_API_KEY")

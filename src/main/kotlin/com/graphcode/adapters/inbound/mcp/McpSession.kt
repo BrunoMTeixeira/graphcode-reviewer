@@ -1,4 +1,4 @@
-package com.graphcode.adapters.inbound.mcp
+﻿package com.graphcode.adapters.inbound.mcp
 
 import com.graphcode.adapters.inbound.mcp.protocol.JsonRpcRequest
 import com.graphcode.adapters.inbound.mcp.protocol.JsonRpcResponse

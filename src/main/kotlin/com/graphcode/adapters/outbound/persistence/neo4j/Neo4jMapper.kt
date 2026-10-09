@@ -31,7 +31,7 @@ object Neo4jMapper {
 
     private fun toEntity(domain: FunctionNode): FunctionEntity {
         val entity = FunctionEntity(
-            id = java.util.UUID.randomUUID().toString(), // ou domain.id se tiver
+            id = domain.id,
             name = domain.name,
             signature = domain.signature,
             returnType = domain.returnType,

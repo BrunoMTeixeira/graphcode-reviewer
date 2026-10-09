@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class BlastRadiusPath(
     val pathId: Int,
     val nodes: List<String>,
-    val severity: String // ALTA (direct), MÉDIA (1 hop), BAIXA (>1 hop)
+    val severity: com.graphcode.domain.models.Severity //ÉDIA (1 hop), BAIXA (>1 hop)
 )
 
 @Serializable

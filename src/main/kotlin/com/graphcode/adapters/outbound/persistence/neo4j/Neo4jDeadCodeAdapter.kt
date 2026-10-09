@@ -31,7 +31,7 @@ class Neo4jDeadCodeAdapter(private val neo4jClient: Neo4jClient) : DeadCodeQuery
                 DeadCodeResult(
                     qualifiedName = record["name"].toString(),
                     fileLocation = record["fileLoc"].toString(),
-                    severity = "MÉDIA",
+                    severity = com.graphcode.domain.models.Severity.MEDIA,
                     reason = "Unreachable code (0 incoming references)"
                 )
             )
@@ -52,7 +52,7 @@ class Neo4jDeadCodeAdapter(private val neo4jClient: Neo4jClient) : DeadCodeQuery
                 DeadCodeResult(
                     qualifiedName = "$a <-> $b",
                     fileLocation = "Grafo",
-                    severity = "ALTA",
+                    severity = com.graphcode.domain.models.Severity.ALTA,
                     reason = "Circular dependency detected"
                 )
             )
